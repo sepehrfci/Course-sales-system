@@ -7,9 +7,9 @@
             <img src="img/weblogo.png" alt="logo">
         </a>
         <div class="form-content form-account">
-            <input id="email" name="email" type="email" class="txt-l txt" placeholder="ایمیل یا شماره موبایل"
+            <input id="login" name="login" type="text" class="txt-l txt" placeholder="ایمیل یا شماره موبایل"
             value="{{ old('email') }}" autofocus autocomplete="email">
-            @error('email')
+            @error('login')
                 <p> {{ $message }}</p>
             @enderror
             <input id="password" name="password" type="password"class="txt-l txt" placeholder="رمز عبور"
