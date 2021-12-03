@@ -1,17 +1,27 @@
 @extends('myauth.master')
-@section('title','صفحه بازیابی حساب کاربری')
+@section('title','صفحه فراموشی رمز عبور')
 @section('content')
-    <form action="" class="form" method="post">
-        <a class="account-logo" href="index.html">
-            <img src="img/weblogo.png" alt="">
+    <form action="{{ route('password.email') }}" class="form" method="post">
+        @csrf
+        <a class="account-logo" href="/">
+            <img src="img/weblogo.png" alt="logo">
         </a>
+
         <div class="form-content form-account">
-            <input type="text" class="txt-l txt" placeholder="ایمیل">
+            <input id="email" name="email" type="email" value="{{ old('email') }}" class="txt-l txt"
+                   placeholder="ایمیل" required autofocus>
             <br>
+            @error('email')
+            <p> {{ $message }}</p>
+            @enderror
             <button class="btn btn-recoverpass">بازیابی</button>
+            @if(session()->has('status'))
+                <strong class="text-success mt-4">{{session()->get('status')}}</strong>
+            @endif
         </div>
+
         <div class="form-footer">
-            <a href="login.html">صفحه ورود</a>
+            <a href="{{ route('login') }}">صفحه ورود</a>
         </div>
     </form>
 @endsection
