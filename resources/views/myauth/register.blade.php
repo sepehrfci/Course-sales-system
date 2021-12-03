@@ -3,7 +3,7 @@
 @section('content')
     <form class="form" method="POST" action="{{ route('register') }}">
         @csrf
-        <a class="account-logo" href="index.html">
+        <a class="account-logo" href="/">
             <img src="img/weblogo.png" alt="">
         </a>
         <div class="form-content form-account">
