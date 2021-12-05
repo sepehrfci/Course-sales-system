@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['namespace' => 'App\Http\Controllers','middleware' => 'web'], function (){
+Route::group(['namespace' => 'Sepehrfci\User\Http\Controllers','middleware' => 'web'], function (){
 
     Route::get('/dashboard', function () {
         return view('dashboard');
