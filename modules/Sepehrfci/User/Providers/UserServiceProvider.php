@@ -3,9 +3,14 @@
 namespace Sepehrfci\User\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Sepehrfci\User\Models\User;
 
 class UserServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        config()->set('auth.providers.users.model',User::class);
+    }
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__ . '/../Routes/user_routes.php');
