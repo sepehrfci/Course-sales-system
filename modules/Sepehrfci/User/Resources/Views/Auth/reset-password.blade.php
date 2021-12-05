@@ -1,4 +1,4 @@
-@extends('myauth.master')
+@extends('User::Auth.master')
 @section('title','صفحه بازیابی حساب کاربری')
 @section('content')
     <form action="{{ route('password.update') }}" class="form" method="post">

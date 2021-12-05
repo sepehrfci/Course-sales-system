@@ -1,4 +1,4 @@
-@extends('myauth.master')
+@extends('User::Auth.master')
 @section('title','صفحه ورود')
 @section('content')
     <form action="{{ route('login') }}" class="form" method="post">

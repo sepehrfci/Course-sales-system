@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace Sepehrfci\User\Http\Requests\Auth;
 
 use Sepehrfci\User\Models\User;
 use Illuminate\Auth\Events\Lockout;

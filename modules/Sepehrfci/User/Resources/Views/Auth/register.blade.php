@@ -1,4 +1,4 @@
-@extends('myauth.master')
+@extends('User::Auth.master')
 @section('title','صفحه ثبت نام')
 @section('content')
     <form class="form" method="POST" action="{{ route('register') }}">

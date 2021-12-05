@@ -1,4 +1,4 @@
-@extends('myauth.master')
+@extends('User::Auth.master')
 @section('title','صفحه فراموشی رمز عبور')
 @section('content')
     <form action="{{ route('password.email') }}" class="form" method="post">

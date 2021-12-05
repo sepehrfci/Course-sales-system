@@ -1,4 +1,4 @@
-@extends('myauth.master')
+@extends('User::Auth.master')
 @section('title','صفحه تایید ایمیل')
 @section('content')
     <div action="" class="form" method="post">
