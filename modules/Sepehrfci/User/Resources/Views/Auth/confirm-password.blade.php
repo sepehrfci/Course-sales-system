@@ -1,17 +1,19 @@
 @extends('User::Auth.master')
 @section('title','صفحه تایید رمز عبور')
 @section('content')
-        <form action="" class="form" method="post">
-            <a class="account-logo" href="index.html">
-                <img src="img/weblogo.png" alt="">
+        <form action="{{ route('password.confirm.post') }}" class="form" method="post">
+            @csrf
+            <a class="account-logo" href="/">
+                <img src="/img/weblogo.png" alt="logo">
             </a>
             <div class="form-content form-account">
-                <input type="text" class="txt-l txt" placeholder="ایمیل">
+                <input type="password" id="password" name="password" class="txt-l txt"
+                       placeholder="رمز عبور خود را وارد کنید">
                 <br>
-                <button class="btn btn-recoverpass">بازیابی</button>
+                <button type="submit" class="btn btn-recoverpass">تایید رمز عبور</button>
             </div>
             <div class="form-footer">
-                <a href="login.html">صفحه ورود</a>
+
             </div>
         </form>
 @endsection
