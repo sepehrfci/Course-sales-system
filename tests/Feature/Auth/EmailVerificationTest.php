@@ -16,7 +16,11 @@ class EmailVerificationTest extends TestCase
 
     public function test_email_verification_screen_can_be_rendered()
     {
-        $user = User::factory()->create([
+        $user = User::create([
+            'name' => 'sepehr',
+            'email' => 'sepehr123@gmail.com',
+            'phone' => '9123654879',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'email_verified_at' => null,
         ]);
 
@@ -27,7 +31,11 @@ class EmailVerificationTest extends TestCase
 
     public function test_email_can_be_verified()
     {
-        $user = User::factory()->create([
+        $user = User::create([
+            'name' => 'sepehr',
+            'email' => 'sepehr123@gmail.com',
+            'phone' => '9123654879',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'email_verified_at' => null,
         ]);
 
@@ -48,7 +56,11 @@ class EmailVerificationTest extends TestCase
 
     public function test_email_is_not_verified_with_invalid_hash()
     {
-        $user = User::factory()->create([
+        $user = User::create([
+            'name' => 'sepehr',
+            'email' => 'sepehr123@gmail.com',
+            'phone' => '9123654879',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'email_verified_at' => null,
         ]);
 

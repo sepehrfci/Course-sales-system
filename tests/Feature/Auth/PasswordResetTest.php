@@ -23,7 +23,13 @@ class PasswordResetTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create();
+        $user = User::create([
+            'name' => 'sepehr',
+            'email' => 'sepehr123@gmail.com',
+            'phone' => '9123654879',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        ]);
 
         $this->post('/forgot-password', ['email' => $user->email]);
 
@@ -34,7 +40,13 @@ class PasswordResetTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create();
+        $user = User::create([
+            'name' => 'sepehr',
+            'email' => 'sepehr123@gmail.com',
+            'phone' => '9123654879',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        ]);
 
         $this->post('/forgot-password', ['email' => $user->email]);
 
@@ -51,7 +63,13 @@ class PasswordResetTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create();
+        $user = User::create([
+            'name' => 'sepehr',
+            'email' => 'sepehr123@gmail.com',
+            'phone' => '9123654879',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        ]);
 
         $this->post('/forgot-password', ['email' => $user->email]);
 
