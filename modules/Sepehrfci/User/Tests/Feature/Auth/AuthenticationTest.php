@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Auth;
+namespace Sepehrfci\User\Tests\Feature\Auth;
 
 use Illuminate\Support\Str;
 use Sepehrfci\User\Models\User;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Sepehrfci\User\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Sepehrfci\User\Rules\ValidPhone;
