@@ -12,7 +12,7 @@ class PhoneValidationTest extends TestCase
      *
      * @return void
      */
-    public function test_phone_start_with_9()
+    public function test_phone_should_start_by_9()
     {
         $result = (new ValidPhone())->passes('', '0917294837');
         $this->assertEquals(0, $result);
