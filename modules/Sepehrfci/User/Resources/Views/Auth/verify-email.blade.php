@@ -15,9 +15,9 @@
                 را در کادر زیر وارد کنید . ممکن است ایمیل به پوشه spam فرستاده شده باشد
             </p>
                 <div class="form-content form-content1">
-                    <form action="" method="POST">
+                    <form action="{{route('verification.verify')}}" method="POST">
                         @csrf
-                        <input name="verify_code" class="activation-code-input" placeholder="فعال سازی">
+                        <input name="verify_code" required class="activation-code-input" placeholder="فعال سازی">
                         @error('verify_code')
                             <br>
                             <strong> {{ $message }}</strong>
