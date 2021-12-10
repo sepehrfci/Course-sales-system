@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Sepehrfci\User\Http\Requests\VerifyCodeRequest;
 use Sepehrfci\User\Services\VerifyCodeService;
 
 class VerifyEmailController extends Controller
@@ -30,19 +31,12 @@ class VerifyEmailController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
     }
 
-    public function verify(Request $request)
+    public function verify(VerifyCodeRequest $request)
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
-        }
+        VerifyCodeService::hasVerifiedEmail($request);
 
-        if (VerifyCodeService::getCache(auth()->user()->id) == $request->verify_code){
-            if ($request->user()->markEmailAsVerified()) {
-                event(new Verified($request->user()));
-            }
-            VerifyCodeService::deleteCache(auth()->user()->id);
-            return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
-        }
+        VerifyCodeService::verifyEmail($request);
+
         return back()->withErrors([
             'verify_code' => 'کد وارد شده صحیح نمیباشد.'
         ]);
