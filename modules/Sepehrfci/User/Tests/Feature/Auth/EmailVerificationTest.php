@@ -8,6 +8,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
+use Sepehrfci\User\Services\VerifyCodeService;
 use Tests\TestCase;
 
 class EmailVerificationTest extends TestCase
@@ -39,19 +40,27 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        Event::fake();
-
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1($user->email)]
-        );
-
-        $response = $this->actingAs($user)->get($verificationUrl);
-
-        Event::assertDispatched(Verified::class);
+//        Event::fake();
+//
+//        $verificationUrl = URL::temporarySignedRoute(
+//            'verification.verify',
+//            now()->addMinutes(60),
+//            ['id' => $user->id, 'hash' => sha1($user->email)]
+//        );
+//
+//        $response = $this->actingAs($user)->get($verificationUrl);
+//
+//        Event::assertDispatched(Verified::class);
+        auth()->loginUsingId($user->id);
+        $code = VerifyCodeService::generateCode();
+        VerifyCodeService::setCache($user->id,$code);
+        $response = $this->post(route('verification.verify'),[
+            'verify_code' => $code
+        ]);
+        $this->assertAuthenticated();
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(RouteServiceProvider::HOME.'?verified=1');
+        //dd($response);
+        //$response->assertRedirect('http://localhost' . RouteServiceProvider::HOME . '?verified=1');
     }
 
     public function test_email_is_not_verified_with_invalid_hash()
@@ -64,14 +73,20 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1('wrong-email')]
-        );
-
-        $this->actingAs($user)->get($verificationUrl);
-
+//        $verificationUrl = URL::temporarySignedRoute(
+//            'verification.verify',
+//            now()->addMinutes(60),
+//            ['id' => $user->id, 'hash' => sha1('wrong-email')]
+//        );
+//
+//        $this->actingAs($user)->get($verificationUrl);
+        auth()->loginUsingId($user->id);
+        $code = VerifyCodeService::generateCode();
+        VerifyCodeService::setCache($user->id,$code);
+        $this->assertAuthenticated();
+        $this->post(route('verification.verify'),[
+            'verify_code' => 100000
+        ]);
         $this->assertFalse($user->fresh()->hasVerifiedEmail());
     }
 }
