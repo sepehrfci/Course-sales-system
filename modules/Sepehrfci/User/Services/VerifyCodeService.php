@@ -2,7 +2,9 @@
 
 namespace Sepehrfci\User\Services;
 
+use App\Providers\RouteServiceProvider;
 use Exception;
+use Illuminate\Auth\Events\Verified;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -34,7 +36,6 @@ class VerifyCodeService
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
      */
     public static function getCache($id)
@@ -43,7 +44,7 @@ class VerifyCodeService
             return cache()->get('verify_email_' . $id);
         }
         catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
-            echo "ERROR";
+            dd('ERROR');
         }
     }
 
@@ -53,7 +54,33 @@ class VerifyCodeService
             return cache()->delete('verify_email_' . $id);
         }
         catch (InvalidArgumentException | Exception $e) {
-            echo "ERROR";
+            dd('ERROR');
+        }
+    }
+
+    public static function hasVerifiedEmail($request)
+    {
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect()->intended(RouteServiceProvider::HOME . '?verified=1');
+        }
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function verifyEmail($request)
+    {
+        if (self::getCache(auth()->user()->id) == $request->verify_code){
+            self::markEmailAsVerified($request);
+            self::deleteCache(auth()->user()->id);
+            return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+        }
+    }
+
+    public static function markEmailAsVerified($request)
+    {
+        if ($request->user()->markEmailAsVerified()) {
+            event(new Verified($request->user()));
         }
     }
 }
