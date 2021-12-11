@@ -27,7 +27,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Sepehrfci\\User\\": "modules/Sepehrfci/User/"
+            "Sepehrfci\\User\\": "modules/Sepehrfci/User/",
+            "Sepehrfci\\Dashboard\\": "modules/Sepehrfci/Dashboard/"
         }
     },
     "autoload-dev": {
