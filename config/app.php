@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         \Sepehrfci\User\Providers\UserServiceProvider::class,
         \Sepehrfci\Dashboard\Providers\DashboardServiceProvider::class,
+        \Sepehrfci\Category\Providers\CategoryServiceProvider::class,
         /*
          * Package Service Providers...
          */
