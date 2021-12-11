@@ -13,6 +13,10 @@
                 </div>
             </div>
         </div>
+        <form action="{{route('logout')}}" method="post">
+            @csrf
+            <button type="submit">خروج</button>
+        </form>
         <a href="" class="logout" title="خروج"></a>
     </div>
 </div>
