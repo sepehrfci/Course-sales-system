@@ -1873,3 +1873,20 @@ span.tagRemove:hover {
 .notification__box .title__noti{
     padding: 15px 0;
 }
+
+.alert {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+.alert-success .alert-link {
+    color: #0c4128;
+}
