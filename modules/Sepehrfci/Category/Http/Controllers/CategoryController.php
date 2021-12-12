@@ -6,9 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Sepehrfci\Category\Http\Requests\CategoryRequest;
 use Sepehrfci\Category\Models\Category;
+use Sepehrfci\Category\Repository\CategoryRepository;
+use Sepehrfci\Category\Responses\AjaxResponse;
 
 class CategoryController extends Controller
 {
+    private CategoryRepository $repository;
+
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->repository = $categoryRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +24,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = $this->repository->all();
         return view('Category::index',compact('categories'));
     }
 
@@ -38,8 +46,10 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
-        return back();
+        $this->repository->store($request);
+        return back()->with([
+            'success' => 'دسته بندی مورد نظر با موفقیت ایجاد شد.'
+        ]);;
     }
 
     /**
@@ -59,9 +69,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        $categories = Category::query()->where('id','!=',$category->id)->get();
+        $category = $this->repository->findById($id);
+        $categories = $this->repository->allExceptById($id);
         return view('Category::edit',compact('category','categories'));
     }
 
@@ -69,12 +80,12 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, $id)
     {
-        $category->update($request->all());
+        $this->repository->update($id,$request);
         return redirect(route('categories.index'))->with([
             'success' => 'دسته بندی مورد نظر با موفقیت بروزرسانی شد.'
         ]);
@@ -84,10 +95,11 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $this->repository->delete($id);
+        return AjaxResponse::success('حذف دسته بندی با موفقیت انجام شد.');
     }
 }
