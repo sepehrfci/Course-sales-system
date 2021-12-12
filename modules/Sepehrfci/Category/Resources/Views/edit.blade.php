@@ -1,6 +1,9 @@
 @extends('Dashboard::master')
 @section('title','بروزرسانی دسته بندی')
-
+@section('breadcrumb')
+    <li><a href="{{ route('categories.index') }}" title="دسته بندی ها">دسته بندی ها</a></li>
+    <li><a href="#" title="بروزرسانی دسته بندی">بروزرسانی دسته بندی</a></li>
+@endsection
 @section('content')
     <div class="padding-0 categories">
         <div class="row no-gutters  ">

@@ -20,8 +20,4 @@
         <a href="" class="logout" title="خروج"></a>
     </div>
 </div>
-<div class="breadcrumb">
-    <ul>
-        <li><a href="index.html" title="پیشخوان">پیشخوان</a></li>
-    </ul>
-</div>
+@include('Dashboard::layouts.breadcrumb')

@@ -1,5 +1,8 @@
 @extends('Dashboard::master')
 @section('title','دسته بندی ها')
+@section('breadcrumb')
+    <li><a href="{{ route('categories.index') }}" title="دسته بندی ها">دسته بندی ها</a></li>
+@endsection
 @section('style')
     <link rel="stylesheet" href="/panel/css/materialNotify.css">
 @stop
