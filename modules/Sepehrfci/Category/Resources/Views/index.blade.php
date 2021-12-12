@@ -1,17 +1,13 @@
 @extends('Dashboard::master')
 @section('title','دسته بندی ها')
 @section('style')
+    <link rel="stylesheet" href="/panel/css/materialNotify.css">
 @stop
 @section('content')
     <div class="padding-0 categories">
         <div class="row no-gutters  ">
             <div class="col-8 margin-left-10 margin-bottom-15 border-radius-3">
                 <p class="box__title">دسته بندی ها</p>
-                @if(session('success'))
-                    <div class="alert alert-success w-50" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
                 <div class="table__box">
                     <table class="table">
                         <thead role="rowgroup">
@@ -31,7 +27,11 @@
                                 <td>{{ $category->slug }}</td>
                                 <td>{{ $category->parent }}</td>
                                 <td>
-                                    <a href="" class="item-delete mlg-15" title="حذف"></a>
+                                    <a href=""
+                                       onclick="
+                                           event.preventDefault();
+                                           deleteItem(event,'{{route('categories.destroy',$category->id)}}')"
+                                       class="item-delete mlg-15" title="حذف"></a>
                                     <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                                     <a href="{{ route('categories.edit' , $category->id) }}" class="item-edit "
                                        title="ویرایش"></a>
@@ -73,27 +73,26 @@
 
 @section('scripts')
     <script src="/panel/js/tagsInput.js"></script>
+    <script src="/panel/js/materialNotify.js"></script>
+    @if(session('success'))
+        <script>
+            notify("{{ session('success') }}", 3, false);
+        </script>
+    @endif
     <script>
-        // Get all elements with class="closebtn"
-        var close = document.getElementsByClassName("closebtn");
-        var i;
+        function deleteItem (event , route)
+        {
+            if (confirm('آیا از حذف این دسته بندی مطئن هستید؟')){
+                $.post(route,{_method : 'delete', _token : '{{ csrf_token() }}' })
+                    .done(function (response){
+                        event.target.closest('tr').remove();
+                        notify(response.message, 3,false);
+                    })
+                    .fail(function (response){
 
-        // Loop through all close buttons
-        for (i = 0; i < close.length; i++) {
-            // When someone clicks on a close button
-            close[i].onclick = function () {
-
-                // Get the parent of <span class="closebtn"> (<div class="alert">)
-                var div = this.parentElement;
-
-                // Set the opacity of div to 0 (transparent)
-                div.style.opacity = "0";
-
-                // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
-                setTimeout(function () {
-                    div.style.display = "none";
-                }, 600);
+                    })
             }
+
         }
     </script>
 @endsection
