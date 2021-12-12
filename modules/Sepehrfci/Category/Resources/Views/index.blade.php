@@ -1,10 +1,17 @@
 @extends('Dashboard::master')
 @section('title','دسته بندی ها')
+@section('style')
+@stop
 @section('content')
     <div class="padding-0 categories">
         <div class="row no-gutters  ">
             <div class="col-8 margin-left-10 margin-bottom-15 border-radius-3">
                 <p class="box__title">دسته بندی ها</p>
+                @if(session('success'))
+                    <div class="alert alert-success w-50" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="table__box">
                     <table class="table">
                         <thead role="rowgroup">
@@ -18,17 +25,18 @@
                         </thead>
                         <tbody>
                         @foreach($categories as $category)
-                        <tr role="row" class="">
-                            <td><a href="">{{ $category->id }}</a></td>
-                            <td><a href="">{{ $category->title }}</a></td>
-                            <td>{{ $category->slug }}</td>
-                            <td>{{ $category->parent }}</td>
-                            <td>
-                                <a href="" class="item-delete mlg-15" title="حذف"></a>
-                                <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                                <a href="edit-category.html" class="item-edit " title="ویرایش"></a>
-                            </td>
-                        </tr>
+                            <tr role="row" class="">
+                                <td><a href="">{{ $category->id }}</a></td>
+                                <td><a href="">{{ $category->title }}</a></td>
+                                <td>{{ $category->slug }}</td>
+                                <td>{{ $category->parent }}</td>
+                                <td>
+                                    <a href="" class="item-delete mlg-15" title="حذف"></a>
+                                    <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                                    <a href="{{ route('categories.edit' , $category->id) }}" class="item-edit "
+                                       title="ویرایش"></a>
+                                </td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>
@@ -40,7 +48,7 @@
                     @csrf
                     <input name="title" type="text" placeholder="نام دسته بندی" class="text">
                     @error('title')
-                        <strong>{{ $message }}</strong>
+                    <strong>{{ $message }}</strong>
                     @enderror
                     <input name="slug" type="text" placeholder="نام انگلیسی دسته بندی" class="text">
                     @error('slug')
@@ -65,4 +73,27 @@
 
 @section('scripts')
     <script src="/panel/js/tagsInput.js"></script>
+    <script>
+        // Get all elements with class="closebtn"
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+
+        // Loop through all close buttons
+        for (i = 0; i < close.length; i++) {
+            // When someone clicks on a close button
+            close[i].onclick = function () {
+
+                // Get the parent of <span class="closebtn"> (<div class="alert">)
+                var div = this.parentElement;
+
+                // Set the opacity of div to 0 (transparent)
+                div.style.opacity = "0";
+
+                // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+                setTimeout(function () {
+                    div.style.display = "none";
+                }, 600);
+            }
+        }
+    </script>
 @endsection
