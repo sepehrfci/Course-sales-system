@@ -1890,3 +1890,14 @@ span.tagRemove:hover {
 .alert-success .alert-link {
     color: #0c4128;
 }
+
+.pt-1{
+    padding-top: 10px;
+}
+
+.pr-2{
+    padding-right: 30px;
+}
+.mt-2{
+    margin-top:20px ;
+}
