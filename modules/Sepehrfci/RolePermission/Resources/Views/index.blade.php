@@ -25,16 +25,16 @@
                         @foreach($roles as $role)
                             <tr role="row" class="">
                                 <td><a href="">{{ $role->id }}</a></td>
-                                <td><a href="">{{ $role->title }}</a></td>
+                                <td><a href="">{{ $role->name }}</a></td>
                                 <td> permissions </td>
                                 <td>
                                     <a href=""
                                        onclick="
                                            event.preventDefault();
-                                           deleteItem(event,'{{route('role-permissions.destroy',$role->id)}}')"
+                                           deleteItem(event,'{{route('roles-permissions.destroy',$role->id)}}')"
                                        class="item-delete mlg-15" title="حذف"></a>
                                     <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                                    <a href="{{ route('role-permissions.edit' , $role->id) }}" class="item-edit "
+                                    <a href="{{ route('roles-permissions.edit' , $role->id) }}" class="item-edit "
                                        title="ویرایش"></a>
                                 </td>
                             </tr>
@@ -54,9 +54,9 @@
                     <p class="box__title margin-bottom-15">انتخاب دسترسی ها</p>
                         @foreach($permissions as $permission)
                         <label class="ui-checkbox pt-1 pr-2">
-                            <input name="permissions[{{ $permission->name }}]" type="checkbox"
-                                   class="checkedAll" value="true"
-                                   @if(is_array(old('permissions')) && array_key_exists($permission->name,old('permissions')))
+                            <input name="permissions[{{ $permission->id }}]" type="checkbox"
+                                   class="checkedAll" value="{{ $permission->name }}"
+                                   @if(is_array(old('permissions')) && array_key_exists($permission->id,old('permissions')))
                                        checked
                                        @endif
                             >
