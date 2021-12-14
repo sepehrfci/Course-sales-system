@@ -180,7 +180,7 @@ return [
         \Sepehrfci\Dashboard\Providers\DashboardServiceProvider::class,
         \Sepehrfci\Category\Providers\CategoryServiceProvider::class,
         \Sepehrfci\User\Providers\UserServiceProvider::class,
-        \Sepehrfci\RolePermissoion\Providers\RolePermissionServiceProvider::class
+        \Sepehrfci\RolePermission\Providers\RolePermissionServiceProvider::class
 
 
     ),
