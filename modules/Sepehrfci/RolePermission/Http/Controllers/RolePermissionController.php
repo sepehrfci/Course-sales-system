@@ -1,9 +1,10 @@
 <?php
 
-namespace Sepehrfci\RolePermissoion\Http\Controllers;
+namespace Sepehrfci\RolePermission\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Sepehrfci\RolePermission\Http\Requests\RoleRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -37,9 +38,9 @@ class RolePermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

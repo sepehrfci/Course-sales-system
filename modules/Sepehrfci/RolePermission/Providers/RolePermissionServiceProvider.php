@@ -1,6 +1,6 @@
 <?php
 
-namespace Sepehrfci\RolePermissoion\Providers;
+namespace Sepehrfci\RolePermission\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
