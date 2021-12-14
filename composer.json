@@ -31,7 +31,7 @@
             "Sepehrfci\\User\\": "modules/Sepehrfci/User/",
             "Sepehrfci\\Dashboard\\": "modules/Sepehrfci/Dashboard/",
             "Sepehrfci\\Category\\": "modules/Sepehrfci/Category/",
-            "Sepehrfci\\RolePermissoion\\": "modules/Sepehrfci/RolePermissoion/"
+            "Sepehrfci\\RolePermission\\": "modules/Sepehrfci/RolePermission/"
         }
     },
     "autoload-dev": {
