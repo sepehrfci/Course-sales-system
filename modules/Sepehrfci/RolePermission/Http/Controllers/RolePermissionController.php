@@ -40,7 +40,8 @@ class RolePermissionController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        dd($request->all());
+        $role = Role::query()->create(['name' => $request->name])->syncPermissions($request->permissions);
+        return back()->with(['success'=>"نقش جدید نظر با موفقیت ایجاد شد."]);
     }
 
     /**
