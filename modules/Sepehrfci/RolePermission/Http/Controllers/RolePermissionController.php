@@ -36,12 +36,12 @@ class RolePermissionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(RoleRequest $request)
     {
         $role = Role::query()->create(['name' => $request->name])->syncPermissions($request->permissions);
-        return back()->with(['success'=>"نقش جدید نظر با موفقیت ایجاد شد."]);
+        return back()->with(['success'=>"نقش {$role->name} با موفقیت ایجاد شد."]);
     }
 
     /**
