@@ -26,7 +26,13 @@
                             <tr role="row" class="">
                                 <td><a href="">{{ $role->id }}</a></td>
                                 <td><a href="">{{ $role->name }}</a></td>
-                                <td> permissions </td>
+                                <td>
+                                    <ul>
+                                    @foreach($permissions as $permission)
+                                        <li>@lang($permission->name)</li>
+                                    @endforeach
+                                    </ul>
+                                </td>
                                 <td>
                                     <a href=""
                                        onclick="
