@@ -613,6 +613,10 @@ textarea {
     content: "\E083";
 }
 
+.sidebar__nav .i-RolePermission a::before {
+    content: "\E084";
+}
+
 .sidebar__nav .i-courses a::before {
     content: "\E0c2";
 }
