@@ -5,6 +5,7 @@ namespace Sepehrfci\RolePermission\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Sepehrfci\RolePermission\Http\Requests\RoleRequest;
+use Sepehrfci\RolePermission\Http\Requests\RoleUpdateRequest;
 use Sepehrfci\RolePermission\Repositories\PermissionRepository;
 use Sepehrfci\RolePermission\Repositories\RoleRepository;
 use Spatie\Permission\Models\Permission;
@@ -69,11 +70,13 @@ class RolePermissionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $role = $this->roleRepository->findById($id);
+        $permissions = $this->permissionRepository->all();
+        return view('RolePermission::edit',compact('role' , 'permissions'));
     }
 
     /**
@@ -81,21 +84,26 @@ class RolePermissionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(RoleUpdateRequest $request, $id)
     {
-        //
+        $role = $this->roleRepository->findById($id);
+        $this->roleRepository->update($request,$role);
+        return redirect(route('roles-permissions.index'))->with([
+           'success' => "نقش {$role->name}با موفقیت بروزرسانی شد."
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $this->roleRepository->delete($id);
+        return response()->json(['message' => 'حذف نقش با موفقیت انجام شد.'],200);
     }
 }
