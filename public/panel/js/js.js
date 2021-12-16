@@ -211,3 +211,19 @@ $('.discounts #discounts-field-2').on('click', function (e) {
 $('.discounts #discounts-field-1').on('click', function (e) {
     $('.discounts .dropdown-select').removeClass('is-active')
 });
+
+function deleteItem (event , route)
+{
+    event.preventDefault();
+    if (confirm('آیا از حذف این مورد مطئن هستید؟')){
+        $.post(route,{_method : 'delete', _token : $('meta[name = "_token"]').attr('content') })
+            .done(function (response){
+                event.target.closest('tr').remove();
+                notify(response.message, 3,false);
+            })
+            .fail(function (response){
+                notify("عملیات ناموفق بود", 3,true);
+            })
+    }
+
+}
