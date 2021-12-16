@@ -5,11 +5,21 @@ namespace Sepehrfci\RolePermission\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Sepehrfci\RolePermission\Http\Requests\RoleRequest;
+use Sepehrfci\RolePermission\Repositories\PermissionRepository;
+use Sepehrfci\RolePermission\Repositories\RoleRepository;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RolePermissionController extends Controller
 {
+    private RoleRepository $roleRepository;
+    private PermissionRepository $permissionRepository;
+    public function __construct(RoleRepository $roleRepository,PermissionRepository $permissionRepository)
+    {
+        $this->roleRepository = $roleRepository;
+        $this->permissionRepository = $permissionRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +27,8 @@ class RolePermissionController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        $permissions = Permission::all();
+        $roles = $this->roleRepository->all();
+        $permissions = $this->permissionRepository->all();
         return view('RolePermission::index',compact('roles','permissions'));
     }
 
@@ -40,7 +50,7 @@ class RolePermissionController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        $role = Role::query()->create(['name' => $request->name])->syncPermissions($request->permissions);
+        $role = $this->roleRepository->create($request);
         return back()->with(['success'=>"نقش {$role->name} با موفقیت ایجاد شد."]);
     }
 
