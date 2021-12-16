@@ -37,5 +37,6 @@ return [
         'title'                 => 'عنوان',
         'username'              => 'نام کاربری',
         'year'                  => 'سال',
+        'permissions'                  => 'دسترسی ها',
     ],
 ];
