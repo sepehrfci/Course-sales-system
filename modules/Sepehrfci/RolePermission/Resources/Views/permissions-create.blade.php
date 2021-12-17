@@ -1,6 +1,6 @@
 <div class="col-12 bg-white">
     <p class="box__title">ایجاد سطح جدید</p>
-    <form action="{{ route('roles-permissions.store') }}" method="post" class="padding-30">
+    <form action="{{ route('permissions.store') }}" method="post" class="padding-30">
         @csrf
         <input name="name" type="text" placeholder="عنوان سطح(انگلیسی)" class="text" value="{{ old('name') }}">
         @error('name')
