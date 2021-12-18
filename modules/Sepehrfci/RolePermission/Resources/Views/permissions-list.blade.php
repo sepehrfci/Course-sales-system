@@ -19,7 +19,7 @@
                            onclick="
                                deleteItem(event,'{{route('roles-permissions.destroy',$permission->id)}}')"
                            class="item-delete mlg-15" title="حذف"></a>
-                        <a href="{{ route('roles-permissions.edit' , $permission->id) }}" class="item-edit "
+                        <a href="{{ route('permissions.edit' , $permission->id) }}" class="item-edit "
                            title="ویرایش"></a>
                     </td>
                 </tr>
