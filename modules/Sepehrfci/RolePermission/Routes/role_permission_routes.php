@@ -9,4 +9,6 @@ Route::prefix('dashboard')->middleware(['web','auth','verified'])->group(functio
     Route::resource('roles-permissions',RolePermissionController::class);
     Route::post('roles-permissions/permissions/store',[PermissionController::class,'store'])
         ->name('permissions.store');
+    Route::get('roles-permissions/permissions/{id}/edit',[PermissionController::class,'edit'])
+        ->name('permissions.edit');
 });
