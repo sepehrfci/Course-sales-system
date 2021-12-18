@@ -19,18 +19,13 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        //Permission::create(['name' => $request->name]);
-
+        Permission::create(['name' => $request->name]);
         $inp = file_get_contents(__DIR__ . '/../../Resources/Lang/fa.json');
-        $tempArray = json_decode($inp);
-
-        dd($tempArray);
-        array_push($tempArray, [$request->name => $request->name_fa]);
+        $tempArray = json_decode($inp,true);
+        $tempArray[$request->name] = $request->name_fa;
         $jsonData = json_encode($tempArray);
-
-        dd($jsonData);
         \File::put(__DIR__ . '/../../Resources/Lang/fa.json',$jsonData);
-        //return back()->with(['message' => 'دسترسی مورد نظر با موفقیت ایجاد شد.']);
+        return back()->with(['success' => 'دسترسی مورد نظر با موفقیت ایجاد شد.']);
     }
 
     /**
@@ -48,11 +43,17 @@ class PermissionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+
+        $permission = Permission::query()->findOrFail($id);
+
+        $inp = file_get_contents(__DIR__ . '/../../Resources/Lang/fa.json');
+        $tempArray = json_decode($inp,true);
+        $name_fa = $tempArray[$permission->name];
+        return view('RolePermission::edit-permissions',compact('permission','name_fa'));
     }
 
     /**
